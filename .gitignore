@@ -30,3 +30,12 @@
 *.exe
 *.out
 *.app
+
+# Visual Studio Exe Firectory
+x64/
+Release/
+Debug/
+
+# Visual Studio Project Files
+*.vcxproj
+*.vcxproj.filters
