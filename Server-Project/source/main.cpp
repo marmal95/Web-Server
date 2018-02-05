@@ -6,6 +6,13 @@
 
 INITIALIZE_EASYLOGGINGPP
 
+/*
+TODO:
+- Server Interface
+- Server Service
+- Running Address / Port - C-tor
+*/
+
 int main()
 {
 	LOG(INFO) << "Initializing Server";

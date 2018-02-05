@@ -140,8 +140,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="deps\source\Logger.cpp" />
-    <ClCompile Include="main.cpp" />
-    <ClCompile Include="Server.cpp" />
+    <ClCompile Include="source\main.cpp" />
+    <ClCompile Include="source\Server.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="deps\include\Logger.hpp" />
