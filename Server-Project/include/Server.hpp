@@ -1,5 +1,6 @@
 #pragma once
 
+#include <string>
 #include <boost/asio/io_service.hpp>
 #include <boost/asio/ip/tcp.hpp>
 
@@ -11,12 +12,14 @@ namespace web
 	class Server
 	{
 	public:
-		Server(const std::shared_ptr<io_service>& io_service);
+		Server(io_service& io_service, const std::string& address, uint32_t port);
+		Server(const Server&) = delete;
+		Server& operator=(const Server&) = delete;
+
 		void start();
 
 	private:
-		std::shared_ptr<io_service> io_service;
-		tcp::endpoint tcp_endpoint;
+		io_service& io_service;
 		tcp::acceptor tcp_acceptor;
 		tcp::socket tcp_socket;
 

@@ -1,26 +1,18 @@
-#include "Server.hpp"
+#include "ServerService.hpp"
 #include "Logger.hpp"
 
 #include <iostream>
-#include <boost/asio/io_service.hpp>
+
 
 INITIALIZE_EASYLOGGINGPP
 
-/*
-TODO:
-- Server Interface
-- Server Service
-- Running Address / Port - C-tor
-*/
 
 int main()
 {
-	LOG(INFO) << "Initializing Server";
-	auto io_service = std::make_shared<boost::asio::io_service>();
-	
-	web::Server server{io_service};
-	server.start();
+	LOG(INFO) << "Starting application.";
 
-	LOG(INFO) << "Exiting Server";
+	web::ServerService server_service{ "127.0.0.1", 3000 };
+	server_service.start();
+
 	return EXIT_SUCCESS;
 }

@@ -29,12 +29,18 @@
     <ClCompile Include="source\Server.cpp">
       <Filter>source</Filter>
     </ClCompile>
+    <ClCompile Include="source\ServerService.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="deps\include\Logger.hpp">
       <Filter>deps\include</Filter>
     </ClInclude>
     <ClInclude Include="include\Server.hpp">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ServerService.hpp">
       <Filter>include</Filter>
     </ClInclude>
   </ItemGroup>
