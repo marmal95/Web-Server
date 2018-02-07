@@ -141,11 +141,15 @@
   <ItemGroup>
     <ClCompile Include="deps\source\Logger.cpp" />
     <ClCompile Include="source\main.cpp" />
+    <ClCompile Include="source\Request.cpp" />
+    <ClCompile Include="source\RequestHandler.cpp" />
     <ClCompile Include="source\Server.cpp" />
     <ClCompile Include="source\ServerService.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="deps\include\Logger.hpp" />
+    <ClInclude Include="include\Request.hpp" />
+    <ClInclude Include="include\RequestHandler.hpp" />
     <ClInclude Include="include\Server.hpp" />
     <ClInclude Include="include\ServerService.hpp" />
   </ItemGroup>
