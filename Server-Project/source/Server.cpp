@@ -34,7 +34,7 @@ namespace web
 			LOG(INFO) << "Listening for connections...";
 			if (!tcp_acceptor.is_open())
 			{
-				LOG(DEBUG) << "tcp_acceptor is not open. Could not accept connection.";
+				LOG(ERROR) << "tcp_acceptor is not open. Could not accept connection.";
 				return;
 			}
 

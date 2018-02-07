@@ -38,6 +38,12 @@
     <ClCompile Include="source\RequestHandler.cpp">
       <Filter>source</Filter>
     </ClCompile>
+    <ClCompile Include="source\ConnectionManager.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Connection.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="deps\include\Logger.hpp">
@@ -53,6 +59,12 @@
       <Filter>include</Filter>
     </ClInclude>
     <ClInclude Include="include\RequestHandler.hpp">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ConnectionManager.hpp">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Connection.hpp">
       <Filter>include</Filter>
     </ClInclude>
   </ItemGroup>

@@ -140,6 +140,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="deps\source\Logger.cpp" />
+    <ClCompile Include="source\Connection.cpp" />
+    <ClCompile Include="source\ConnectionManager.cpp" />
     <ClCompile Include="source\main.cpp" />
     <ClCompile Include="source\Request.cpp" />
     <ClCompile Include="source\RequestHandler.cpp" />
@@ -148,6 +150,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="deps\include\Logger.hpp" />
+    <ClInclude Include="include\Connection.hpp" />
+    <ClInclude Include="include\ConnectionManager.hpp" />
     <ClInclude Include="include\Request.hpp" />
     <ClInclude Include="include\RequestHandler.hpp" />
     <ClInclude Include="include\Server.hpp" />
