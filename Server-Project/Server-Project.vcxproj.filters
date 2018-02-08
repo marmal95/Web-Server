@@ -44,6 +44,9 @@
     <ClCompile Include="source\Connection.cpp">
       <Filter>source</Filter>
     </ClCompile>
+    <ClCompile Include="source\Response.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="deps\include\Logger.hpp">
@@ -65,6 +68,9 @@
       <Filter>include</Filter>
     </ClInclude>
     <ClInclude Include="include\Connection.hpp">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Response.hpp">
       <Filter>include</Filter>
     </ClInclude>
   </ItemGroup>

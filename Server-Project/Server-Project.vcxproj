@@ -145,6 +145,7 @@
     <ClCompile Include="source\main.cpp" />
     <ClCompile Include="source\Request.cpp" />
     <ClCompile Include="source\RequestHandler.cpp" />
+    <ClCompile Include="source\Response.cpp" />
     <ClCompile Include="source\Server.cpp" />
     <ClCompile Include="source\ServerService.cpp" />
   </ItemGroup>
@@ -154,6 +155,7 @@
     <ClInclude Include="include\ConnectionManager.hpp" />
     <ClInclude Include="include\Request.hpp" />
     <ClInclude Include="include\RequestHandler.hpp" />
+    <ClInclude Include="include\Response.hpp" />
     <ClInclude Include="include\Server.hpp" />
     <ClInclude Include="include\ServerService.hpp" />
   </ItemGroup>

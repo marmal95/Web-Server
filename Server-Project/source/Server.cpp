@@ -1,5 +1,6 @@
 #include "Server.hpp"
 #include "Logger.hpp"
+#include "Connection.hpp"
 
 namespace web
 {
@@ -7,7 +8,7 @@ namespace web
 	using boost::asio::ip::tcp;
 
 	Server::Server(boost::asio::io_service& io_service, const std::string& address, uint32_t port, const std::string& root_dir)
-		: io_service{ io_service }, tcp_acceptor{ io_service }, tcp_socket{ io_service }, request_handler{ root_dir }
+		: io_service{ io_service }, tcp_acceptor{ io_service }, tcp_socket{ io_service }, request_handler{ root_dir }, connection_manager{}
 	{
 		LOG(INFO) << "Initializing Server.";
 		tcp::resolver resolver{ io_service };
@@ -41,8 +42,8 @@ namespace web
 			if (!ec)
 			{
 				LOG(INFO) << "New connection accepted.";
-				auto x = std::move(tcp_socket);
-				// Needs to be moved - otherwise infinite loop
+				connection_manager.start_connection(std::make_shared<Connection>(
+					std::move(tcp_socket), connection_manager, request_handler));
 			}
 
 			accept();

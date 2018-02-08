@@ -1,6 +1,7 @@
 #pragma once
 
 #include "RequestHandler.hpp"
+#include "ConnectionManager.hpp"
 
 #include <string>
 #include <boost/asio/io_service.hpp>
@@ -25,6 +26,7 @@ namespace web
 		tcp::acceptor tcp_acceptor;
 		tcp::socket tcp_socket;
 		RequestHandler request_handler;
+		ConnectionManager connection_manager;
 
 		void accept();
 	};

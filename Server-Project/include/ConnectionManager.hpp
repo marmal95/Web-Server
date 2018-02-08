@@ -1,12 +1,12 @@
 #pragma once
 
-#include "Connection.hpp"
-
 #include <unordered_set>
 #include <memory>
 
 namespace web
 {
+	class Connection;
+
 	class ConnectionManager
 	{
 	public:
