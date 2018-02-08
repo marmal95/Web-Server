@@ -1,15 +1,19 @@
 #include "RequestHandler.hpp"
 #include "Logger.hpp"
 
-web::RequestHandler::RequestHandler(const std::string& root_dir)
-	: root_dir{ root_dir }
+namespace web
 {
-	LOG(INFO) << "Initializing RequestHandler";
-	LOG(INFO) << "Initialized RequestHandler";
-}
+	RequestHandler::RequestHandler(const std::string& root_dir)
+		: root_dir{ root_dir }
+	{
+		LOG(INFO) << "Initializing RequestHandler";
+		LOG(INFO) << "Initialized RequestHandler";
+	}
 
-void web::RequestHandler::handle_request(const Request& request)
-{
-	LOG(INFO) << "Received new Request to handle.";
-	LOG(INFO) << "Start handling new Request";
+	std::unique_ptr<Response> RequestHandler::handle_request(std::unique_ptr<Request> request)
+	{
+		LOG(INFO) << "Received new Request to handle.";
+		LOG(INFO) << "Start handling new Request";
+		return std::make_unique<Response>();
+	}
 }

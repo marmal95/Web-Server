@@ -1,6 +1,9 @@
 #pragma once
 
 #include "Request.hpp"
+#include "Response.hpp"
+
+#include <memory>
 #include <string>
 
 namespace web
@@ -12,7 +15,7 @@ namespace web
 		RequestHandler(const RequestHandler&) = delete;
 		RequestHandler& operator=(const RequestHandler&) = delete;
 
-		void handle_request(const Request& request);
+		std::unique_ptr<Response> handle_request(std::unique_ptr<Request> request);
 
 	private:
 		std::string root_dir;
