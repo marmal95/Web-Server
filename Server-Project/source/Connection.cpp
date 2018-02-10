@@ -45,7 +45,7 @@ namespace web
 			}
 			else if (ec != boost::asio::error::operation_aborted)
 			{
-				connection_manager.stop_connection(this_conn);
+				//connection_manager.stop_connection(this_conn); // [BUG]: Crash happens
 			}
 			else
 			{
@@ -58,7 +58,7 @@ namespace web
 		timer.async_wait([this, this_conn](const boost::system::error_code& ec)
 		{
 			Logger::S_LOG << "Connection timeout: " << "[" << socket.remote_endpoint().address().to_string() << "]" << std::endl;
-			connection_manager.stop_connection(this_conn); // [BUG]: Crash happens
+			connection_manager.stop_connection(this_conn); 
 		});
 	}
 
