@@ -23,6 +23,7 @@ namespace web
 
 		void start();
 		void stop();
+		std::string remote_endpoint_address() const;
 
 	private:
 		tcp::socket socket;

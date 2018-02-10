@@ -9,20 +9,8 @@
       <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
       <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
-    <Filter Include="deps">
-      <UniqueIdentifier>{b7dbce61-71b1-4b68-ba15-503ab1f39e0c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="deps\include">
-      <UniqueIdentifier>{13ad2f00-27b1-4225-b035-c5152a802c30}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="deps\source">
-      <UniqueIdentifier>{ee404c97-b4d3-4f88-87c2-3fe90320ac67}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="deps\source\Logger.cpp">
-      <Filter>deps\source</Filter>
-    </ClCompile>
     <ClCompile Include="source\main.cpp">
       <Filter>source</Filter>
     </ClCompile>
@@ -50,11 +38,11 @@
     <ClCompile Include="source\RequestParser.cpp">
       <Filter>source</Filter>
     </ClCompile>
+    <ClCompile Include="source\ServerLog.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="deps\include\Logger.hpp">
-      <Filter>deps\include</Filter>
-    </ClInclude>
     <ClInclude Include="include\Server.hpp">
       <Filter>include</Filter>
     </ClInclude>
@@ -77,6 +65,9 @@
       <Filter>include</Filter>
     </ClInclude>
     <ClInclude Include="include\RequestParser.hpp">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ServerLog.hpp">
       <Filter>include</Filter>
     </ClInclude>
   </ItemGroup>

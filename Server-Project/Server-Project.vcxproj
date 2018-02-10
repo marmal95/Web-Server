@@ -78,12 +78,12 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>D:\Marcin\Documents\Visual Studio 2017\Projects\Server-Project\Server-Project\include;D:\Marcin\Documents\Visual Studio 2017\Projects\Server-Project\Server-Project\deps\include;D:\Dev\boost_1_66_0;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>D:\Marcin\Documents\Visual Studio 2017\Projects\Server-Project\Server-Project\include;D:\Dev\boost_1_66_0\;D:\Dev\googletest\googletest\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
     </ClCompile>
     <Link>
-      <AdditionalLibraryDirectories>D:\Dev\boost_1_66_0\stage\x64\lib\</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>D:\Dev\boost_1_66_0\stage\x64\lib;D:\Dev\googletest\googletest\lib\x64-Release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -92,12 +92,12 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>D:\Marcin\Documents\Visual Studio 2017\Projects\Server-Project\Server-Project\include;D:\Marcin\Documents\Visual Studio 2017\Projects\Server-Project\Server-Project\deps\include;D:\Dev\boost_1_66_0;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>D:\Marcin\Documents\Visual Studio 2017\Projects\Server-Project\Server-Project\include;D:\Dev\boost_1_66_0\;D:\Dev\googletest\googletest\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
     </ClCompile>
     <Link>
-      <AdditionalLibraryDirectories>D:\Dev\boost_1_66_0\stage\x64\lib\</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>D:\Dev\boost_1_66_0\stage\x64\lib;D:\Dev\googletest\googletest\lib\x64-Release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -108,14 +108,14 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>D:\Marcin\Documents\Visual Studio 2017\Projects\Server-Project\Server-Project\include;D:\Marcin\Documents\Visual Studio 2017\Projects\Server-Project\Server-Project\deps\include;D:\Dev\boost_1_66_0;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>D:\Marcin\Documents\Visual Studio 2017\Projects\Server-Project\Server-Project\include;D:\Dev\boost_1_66_0\;D:\Dev\googletest\googletest\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalLibraryDirectories>D:\Dev\boost_1_66_0\stage\x64\lib\</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>D:\Dev\boost_1_66_0\stage\x64\lib;D:\Dev\googletest\googletest\lib\x64-Release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -127,19 +127,18 @@
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
-      <AdditionalIncludeDirectories>D:\Marcin\Documents\Visual Studio 2017\Projects\Server-Project\Server-Project\include;D:\Marcin\Documents\Visual Studio 2017\Projects\Server-Project\Server-Project\deps\include;D:\Dev\boost_1_66_0;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>D:\Marcin\Documents\Visual Studio 2017\Projects\Server-Project\Server-Project\include;D:\Dev\boost_1_66_0\;D:\Dev\googletest\googletest\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <SubSystem>Console</SubSystem>
       <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>D:\Dev\boost_1_66_0\stage\x64\lib\</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>D:\Dev\boost_1_66_0\stage\x64\lib;D:\Dev\googletest\googletest\lib\x64-Release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="deps\source\Logger.cpp" />
     <ClCompile Include="source\Connection.cpp" />
     <ClCompile Include="source\ConnectionManager.cpp" />
     <ClCompile Include="source\main.cpp" />
@@ -148,10 +147,10 @@
     <ClCompile Include="source\RequestParser.cpp" />
     <ClCompile Include="source\Response.cpp" />
     <ClCompile Include="source\Server.cpp" />
+    <ClCompile Include="source\ServerLog.cpp" />
     <ClCompile Include="source\ServerService.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="deps\include\Logger.hpp" />
     <ClInclude Include="include\Connection.hpp" />
     <ClInclude Include="include\ConnectionManager.hpp" />
     <ClInclude Include="include\Request.hpp" />
@@ -159,6 +158,7 @@
     <ClInclude Include="include\RequestParser.hpp" />
     <ClInclude Include="include\Response.hpp" />
     <ClInclude Include="include\Server.hpp" />
+    <ClInclude Include="include\ServerLog.hpp" />
     <ClInclude Include="include\ServerService.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

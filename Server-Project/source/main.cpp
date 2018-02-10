@@ -1,18 +1,13 @@
 #include "ServerService.hpp"
-#include "Logger.hpp"
-
-#include <iostream>
-
-
-INITIALIZE_EASYLOGGINGPP
-
+#include "ServerLog.hpp"
 
 int main()
 {
-	LOG(INFO) << "Starting application.";
+	Logger::S_LOG << "Starting application..." << std::endl;
 
 	web::ServerService server_service{ "127.0.0.1", 3000, "." };
 	server_service.start();
 
+	Logger::S_LOG << "Exiting application..." << std::endl;
 	return EXIT_SUCCESS;
 }
