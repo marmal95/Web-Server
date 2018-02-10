@@ -7,8 +7,9 @@
 #include "Response.hpp"
 
 #include <array>
-#include <boost/asio/ip/tcp.hpp>
 #include <memory>
+#include <boost/asio/ip/tcp.hpp>
+#include <boost/asio/deadline_timer.hpp>
 
 namespace web
 {
@@ -31,6 +32,7 @@ namespace web
 		RequestHandler& request_handler;
 		RequestParser request_parser;
 		std::array<char, 8192> buffer;
+		boost::asio::deadline_timer timer;
 
 		void read();
 		void write();

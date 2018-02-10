@@ -19,6 +19,11 @@ namespace web
 	template<typename Iterator>
 	inline std::unique_ptr<Request> RequestParser::parse(Iterator begin, Iterator end)
 	{
+		auto iter = begin;
+		while (begin++ < end)
+		{
+			std::cout << *begin;
+		}
 		return std::make_unique<Request>();
 	}
 }
