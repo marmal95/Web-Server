@@ -303,3 +303,7 @@ Debug/
 *.vcxproj
 *.vcxproj.filters
 >>>>>>> 7b31057c69a85b862cb33ded3d08432518f2dda8
+
+# Cmake
+cmake-build-debug/
+cmake-build-release/
