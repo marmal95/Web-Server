@@ -22,7 +22,7 @@ namespace web
 		void start();
 
 	private:
-		io_service& io_service;
+		io_service& service_io;
 		tcp::acceptor tcp_acceptor;
 		tcp::socket tcp_socket;
 		RequestHandler request_handler;

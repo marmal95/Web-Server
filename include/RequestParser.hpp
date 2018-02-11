@@ -2,6 +2,7 @@
 
 #include "Request.hpp"
 
+#include <iostream>
 #include <memory>
 
 namespace web

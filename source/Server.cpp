@@ -8,7 +8,7 @@ namespace web
 	using boost::asio::ip::tcp;
 
 	Server::Server(boost::asio::io_service& io_service, const std::string& address, uint32_t port, const std::string& root_dir)
-		: io_service{ io_service }, tcp_acceptor{ io_service }, tcp_socket{ io_service }, request_handler{ root_dir }, connection_manager{}
+		: service_io{ io_service }, tcp_acceptor{ io_service }, tcp_socket{ io_service }, request_handler{ root_dir }, connection_manager{}
 	{
 		Logger::S_LOG << "Initializing Server..." << std::endl;
 		tcp::resolver resolver{ io_service };
@@ -24,7 +24,7 @@ namespace web
 	{
 		Logger::S_LOG << "Starting Server..." << std::endl;
 		accept();
-		io_service.run();
+		service_io.run();
 	}
 
 	void Server::accept()

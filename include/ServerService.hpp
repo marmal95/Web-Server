@@ -17,7 +17,7 @@ namespace web
 		void start();
 
 	private:
-		io_service io_service;
+		io_service service_io;
 		std::string address;
 		uint32_t port;
 		std::string root_dir;
