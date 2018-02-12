@@ -40,8 +40,12 @@ namespace web
 			{
 				auto buffer_data = buffer.data();
 				auto request = request_parser.parse(buffer_data, buffer_data + bytes_transferred);
-				auto response = request_handler.handle_request(std::move(request));
-                write(std::move(response));
+				if(request.second == ResultType::good)
+                {
+                    auto response = request_handler.handle_request(std::move(request.first));
+                    write(std::move(response));
+                }
+                // TODO: Handle other cases
 			}
 			else if (ec != boost::asio::error::operation_aborted)
 			{

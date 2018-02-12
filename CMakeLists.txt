@@ -27,7 +27,7 @@ file(GLOB_RECURSE HEADERS "include/*.hpp")
 file(GLOB_RECURSE SOURCES "source/*.cpp")
 
 # Create executable
-add_executable(Server_Project ${HEADERS} ${SOURCES})
+add_executable(Server_Project ${HEADERS} ${SOURCES} include/Enum.hpp)
 
 # Link libraries
 target_link_libraries(Server_Project ${Boost_LIBRARIES})
