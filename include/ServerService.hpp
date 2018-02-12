@@ -5,7 +5,6 @@
 #include <string>
 #include <boost/asio/io_service.hpp>
 
-
 namespace web
 {
 	using boost::asio::io_service;

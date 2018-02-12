@@ -29,10 +29,9 @@ namespace web
 
 	void Server::accept()
 	{
-		Logger::S_LOG << "Starting listening for connections..." << std::endl;
+		Logger::S_LOG << "Listening for connections..." << std::endl;
 		tcp_acceptor.async_accept(tcp_socket, [this](const boost::system::error_code& ec) 
 		{
-			Logger::S_LOG << "Listening for connections..." << std::endl;
 			if (!tcp_acceptor.is_open())
 			{
 				Logger::S_LOG(InfoLevel::ERR) << __FILE__ << "#" << __LINE__ << ":" << __FUNCTION__ << "tcp_acceptor is not open. Could not accept connection." << std::endl;

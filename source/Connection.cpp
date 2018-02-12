@@ -1,9 +1,6 @@
 #include "Connection.hpp"
 #include "ServerLog.hpp"
 
-#include <iostream>
-#include <boost/asio/deadline_timer.hpp>
-
 namespace web
 {
 	Connection::Connection(tcp::socket&& con_socket, ConnectionManager& con_manager, RequestHandler& req_handler)
@@ -22,7 +19,7 @@ namespace web
 	void Connection::stop()
 	{
 		Logger::S_LOG << "Stopped Connection: " << "[" << socket.remote_endpoint().address().to_string() << "]" << std::endl;
-		socket.close();
+        socket.close();
 	}
 
 	std::string Connection::remote_endpoint_address() const
@@ -42,27 +39,40 @@ namespace web
 				auto buffer_data = buffer.data();
 				auto request = request_parser.parse(buffer_data, buffer_data + bytes_transferred);
 				auto response = request_handler.handle_request(std::move(request));
+                write(std::move(response));
 			}
 			else if (ec != boost::asio::error::operation_aborted)
 			{
-				//connection_manager.stop_connection(this_conn); // [BUG]: Crash happens
+                Logger::S_LOG(InfoLevel::DBG) << ec << std::endl;
+				connection_manager.stop_connection(this_conn);
 			}
 			else
 			{
-				Logger::S_LOG(InfoLevel::ERR) << __FILE__ << "#" << __LINE__ << ":" << __FUNCTION__ << "Error while reading from Connection." << std::endl;
-				connection_manager.stop_connection(this_conn);
+				Logger::S_LOG(InfoLevel::DBG) << __FILE__ << "#" << __LINE__ << " Error occurred while reading data. Code error: " << ec << std::endl;
 			}
 		});
 
 		timer.expires_from_now(boost::posix_time::seconds{ 5 });
-		timer.async_wait([this, this_conn](const boost::system::error_code& ec)
-		{
-			Logger::S_LOG << "Connection timeout: " << "[" << socket.remote_endpoint().address().to_string() << "]" << std::endl;
-			connection_manager.stop_connection(this_conn); 
+		timer.async_wait([this, this_conn](const boost::system::error_code &ec)
+        {
+            if(ec)
+            {
+                return;
+            }
+
+            Logger::S_LOG << "Connection timeout: " << "[" << socket.remote_endpoint().address().to_string() << "]" << std::endl;
+			connection_manager.stop_connection(this_conn);
 		});
 	}
 
-	void Connection::write()
-	{}
+	void Connection::write(std::unique_ptr<Response> response)
+	{
+        std::array<char, 8192> buffer{"Elo"};
+        socket.async_write_some(boost::asio::buffer(buffer),
+            [this](const boost::system::error_code& ec, auto x)
+            {
+                Logger::S_LOG << "Sent." << std::endl;
+            });
+    }
 
 }

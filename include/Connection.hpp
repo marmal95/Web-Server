@@ -35,6 +35,6 @@ namespace web
 		boost::asio::deadline_timer timer;
 
 		void read();
-		void write();
+		void write(std::unique_ptr<Response> response);
 	};
 }

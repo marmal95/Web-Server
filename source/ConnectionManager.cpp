@@ -13,8 +13,8 @@ namespace web
 
 	void ConnectionManager::stop_connection(const std::shared_ptr<Connection>& connection)
 	{
-		Logger::S_LOG << "Stopping Connecion: " << "[" << connection->remote_endpoint_address() << "]" << std::endl;
-		connections.erase(connection);
+		Logger::S_LOG << "Stopping Connection: " << "[" << connection->remote_endpoint_address() << "]" << std::endl;
 		connection->stop();
+		connections.erase(connection);
 	}
 }

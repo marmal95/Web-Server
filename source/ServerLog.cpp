@@ -23,6 +23,5 @@ std::string ServerLog::return_info_level_str()
 	case InfoLevel::DBG: return " [DEBUG] -> ";
 	case InfoLevel::WRN: return " [WARNING] -> ";
 	case InfoLevel::ERR: return " [ERROR] -> ";
-	default: return "";
 	}
 }
