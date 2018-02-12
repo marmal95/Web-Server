@@ -29,8 +29,8 @@ namespace web
 
 	void Server::accept()
 	{
-		Logger::S_LOG << "Listening for connections..." << std::endl;
-		tcp_acceptor.async_accept(tcp_socket, [this](const boost::system::error_code& ec) 
+        Logger::S_LOG << "Listening for connections..." << std::endl;
+		tcp_acceptor.async_accept(tcp_socket, [this](const boost::system::error_code& ec)
 		{
 			if (!tcp_acceptor.is_open())
 			{
@@ -41,7 +41,7 @@ namespace web
 			if (!ec)
 			{
 				Logger::S_LOG << "New Connection accepted: " << "[" << tcp_socket.remote_endpoint().address().to_string() << "]" << std::endl;
-				connection_manager.start_connection(std::make_shared<Connection>(
+                connection_manager.start_connection(std::make_shared<Connection>(
 					std::move(tcp_socket), connection_manager, request_handler));
 			}
 
