@@ -2,12 +2,11 @@
 #include "ServerLog.hpp"
 #include "Exception.hpp"
 #include "ServerLog.hpp"
-
 #include <fstream>
 
 namespace web
 {
-	RequestHandler::RequestHandler(const ResponseBuilder& response_builder, const std::string& root_dir)
+	RequestHandler::RequestHandler(const ResponseBuilder& response_builder, std::string_view root_dir)
 		: response_builder{ response_builder }, root_dir { root_dir}
 	{
 		Logger::S_LOG << "Initializing RequestHandler..." << std::endl;
@@ -34,19 +33,19 @@ namespace web
 			Logger::S_LOG << "Creating response for: " << full_path << std::endl;
 			return response_builder.build(ResponseStatus::ok, content, extension);
 		} 
-		catch (const Exception& exc)
+		catch (const FileNotFound& exc)
 		{
-			Logger::S_LOG << exc.what() << std::endl;
-			return response_builder.build(ResponseStatus::not_found, "");
+			Logger::S_LOG << exc.what() << " [ " << request_path << " ] " << std::endl;
+			return response_builder.build(ResponseStatus::not_found, std::nullopt, std::nullopt);
 		}
 	}
 
-	bool RequestHandler::is_path_correct(const std::string& path) const
+	bool RequestHandler::is_path_correct(std::string_view path) const
 	{
 		return !path.empty() && path[0] == '/' && path.find("..") == std::string::npos;
 	}
 
-	bool RequestHandler::is_path_dir(const std::string& path) const
+	bool RequestHandler::is_path_dir(std::string_view path) const
 	{
 		return path[path.size() - 1] == '/';
 	}
@@ -56,7 +55,7 @@ namespace web
 		path += "index.html";
 	}
 
-	std::string RequestHandler::get_extension(const std::string & path) const
+	std::string RequestHandler::get_extension(std::string_view path) const
 	{
 		auto last_slash_pos = path.find_last_of("/");
 		auto last_dot_pos = path.find_last_of(".");
@@ -68,15 +67,15 @@ namespace web
 		return extension;
 	}
 
-	std::string RequestHandler::read_file_content(const std::string& path)
+	std::string RequestHandler::read_file_content(std::string_view path)
 	{
 		std::string content{};
 
-		std::ifstream input_file(path, std::ios::binary);
+		std::ifstream input_file(path.data(), std::ios::binary);
 		input_file.unsetf(std::ios::skipws);
 		if (!input_file)
 		{
-			throw Exception{ "File " + path + " not found!" };
+			throw FileNotFound{ "Could not open the file."};
 		}
 
 		content.insert(content.begin(),

@@ -1,14 +1,10 @@
 #pragma once
 
 #include <exception>
-#include <string>
+#include <string_view>
 
-class Exception : std::exception
+class FileNotFound : public std::runtime_error
 {
 public:
-	Exception(const std::string& message);
-	const char* what() const override;
-
-protected:
-	std::string message;
+	FileNotFound(std::string_view message);
 };

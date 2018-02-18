@@ -10,17 +10,21 @@ namespace web
 		fill_extensions_map();
 	}
 
-	std::unique_ptr<IResponse> web::ResponseBuilder::build(ResponseStatus status, const std::string& content, const std::string& extension) const
+	std::unique_ptr<IResponse> web::ResponseBuilder::build(
+		ResponseStatus status, std::optional<std::string_view> content, std::optional<std::string_view> extension) const
 	{
+		auto resp_content = content ? content->data() : "";
+		auto resp_extension = extension ? extension->data() : "html";
+
 		auto response = std::make_unique<Response>();
 		response->status = status;
 		response->content = status_str_responses.find(status)->second;
-		response->content.append(content);
+		response->content.append(resp_content);
 		response->headers.resize(2);
 		response->headers[0].name = "Content-Length";
 		response->headers[0].value = std::to_string(response->content.size());
 		response->headers[1].name = "Content-Type";
-		response->headers[1].value = extensions.find(extension)->second;
+		response->headers[1].value = extensions.find(resp_extension)->second;
 		return response;
 	}
 

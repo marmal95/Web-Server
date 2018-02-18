@@ -1,10 +1,5 @@
 #include "Exception.hpp"
 
-Exception::Exception(const std::string& message)
-	: message{ message }
+FileNotFound::FileNotFound(std::string_view message)
+	: std::runtime_error{ message.data() }
 {}
-
-const char* Exception::what() const
-{
-	return message.c_str();
-}

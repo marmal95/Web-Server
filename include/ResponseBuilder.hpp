@@ -2,7 +2,7 @@
 
 #include "IResponseBuilder.hpp"
 #include <map>
-#include <string>
+
 
 namespace web
 {
@@ -10,7 +10,7 @@ namespace web
 	{
 	public:
 		ResponseBuilder();
-		std::unique_ptr<IResponse> build(ResponseStatus status, const std::string& content, const std::string& extension = "html") const override;
+		std::unique_ptr<IResponse> build(ResponseStatus status, std::optional<std::string_view> content, std::optional<std::string_view> extension) const override;
 
 	private:
 		std::map<ResponseStatus, std::string> status_str_responses;

@@ -13,7 +13,7 @@ namespace web
 	class RequestHandler
 	{
 	public:
-		RequestHandler(const ResponseBuilder& response_builder, const std::string& root_dir);
+		RequestHandler(const ResponseBuilder& response_builder, std::string_view root_dir);
 		RequestHandler(const RequestHandler&) = delete;
 		RequestHandler& operator=(const RequestHandler&) = delete;
 
@@ -23,10 +23,10 @@ namespace web
 		const ResponseBuilder& response_builder;
 		const std::string root_dir;
 
-		bool is_path_correct(const std::string& path) const;
-		bool is_path_dir(const std::string& path) const;
+		bool is_path_correct(std::string_view path) const;
+		bool is_path_dir(std::string_view path) const;
 		void append_index(std::string& path);
-		std::string get_extension(const std::string& path) const;
-		std::string read_file_content(const std::string& path);
+		std::string get_extension(std::string_view path) const;
+		std::string read_file_content(std::string_view path);
 	};
 }

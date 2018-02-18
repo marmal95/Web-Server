@@ -16,7 +16,7 @@ namespace web
 	class Server
 	{
 	public:
-		Server(io_service& io_service, const std::string& address, uint32_t port, const std::string& root_dir);
+		Server(io_service& io_service, std::string_view address, uint32_t port, std::string_view root_dir);
 		Server(const Server&) = delete;
 		Server& operator=(const Server&) = delete;
 

@@ -2,7 +2,7 @@
 
 #include "Server.hpp"
 
-#include <string>
+#include <string_view>
 #include <boost/asio/io_service.hpp>
 
 namespace web
@@ -12,7 +12,7 @@ namespace web
 	class ServerService
 	{
 	public:
-		ServerService(const std::string& address, uint32_t port, const std::string& root_dir);
+		ServerService(std::string_view address, uint32_t port, std::string_view root_dir);
 		void start();
 
 	private:
