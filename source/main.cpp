@@ -1,6 +1,7 @@
 #include "ServerService.hpp"
 #include "ServerLog.hpp"
 
+
 int main()
 {
 	Logger::S_LOG << "Starting application..." << std::endl;
