@@ -90,4 +90,7 @@ namespace web
 		const std::string service_unavailable =
 			"HTTP/1.0 503 Service Unavailable\r\n";
 	}
+
+	const char name_value_separator[] = { ':', ' ' };
+	const char crlf[] = { '\r', '\n' };
 }

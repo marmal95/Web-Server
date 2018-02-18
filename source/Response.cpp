@@ -48,9 +48,6 @@ namespace web
 
 	std::vector<boost::asio::const_buffer> Response::to_buffers() const
 	{
-		const char name_value_separator[] = { ':', ' ' };
-		const char crlf[] = { '\r', '\n' };
-
 		std::vector<boost::asio::const_buffer> buffers;
 		buffers.push_back(StatusStrings::to_buffer(status));
 		for (const auto& header : headers)
