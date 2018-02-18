@@ -7,8 +7,29 @@ namespace web
 {
 
 RequestParser::RequestParser()
-        : state(ParserState::method_start), request{ std::make_unique<Request>() }
+	: state(ParserState::method_start), request{ nullptr }
 {}
+
+std::pair<Request_uPtr, ResultType> RequestParser::parse(const boost::asio::const_buffer& buffer)
+{
+	Logger::S_LOG << "Parsing new request." << std::endl;
+	request = std::make_unique<Request>();
+
+	auto begin = boost::asio::buffer_cast<const char*>(buffer);
+	auto end = begin + boost::asio::buffer_size(buffer);
+
+	while (begin != end)
+	{
+		ResultType result = consume(*begin++);
+
+		if (result == ResultType::good || result == ResultType::bad)
+		{
+			return { std::move(request), std::move(result) };
+		}
+	}
+
+	return { std::move(request), ResultType::indeterminate };
+}
 
 void RequestParser::reset()
 {

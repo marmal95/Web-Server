@@ -2,6 +2,7 @@
 
 #include "IRequestParser.hpp"
 #include "Defs.hpp"
+#include "ServerLog.hpp"
 #include <iostream>
 #include <memory>
 #include <utility>
@@ -15,9 +16,7 @@ namespace web
 	{
 	public:
 		RequestParser();
-
-		template<typename Iterator>
-		std::pair<Request_uPtr, ResultType> parse(Iterator begin, Iterator end);
+		std::pair<Request_uPtr, ResultType> parse(const boost::asio::const_buffer& buffer) override;
 		void reset();
 
 	private:
@@ -27,23 +26,4 @@ namespace web
 		ResultType consume(char input);
 		bool is_special(int c) const;
 	};
-
-
-	template<typename Iterator>
-	inline std::pair<Request_uPtr, ResultType> RequestParser::parse(Iterator begin, Iterator end)
-	{
-		Logger::S_LOG << "Parsing new request." << std::endl;
-
-		while (begin != end)
-		{
-			ResultType result = consume(*begin++);
-
-			if (result == ResultType::good || result == ResultType::bad)
-			{
-				return { std::move(request), std::move(result) };
-			}
-		}
-
-		return { std::move(request), ResultType::indeterminate };
-	}
 }

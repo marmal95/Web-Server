@@ -40,7 +40,7 @@ namespace web
 			if (!ec)
 			{
 				auto buffer_data = buffer.data();
-				auto request = request_parser.parse(buffer_data, buffer_data + bytes_transferred);
+				auto request = request_parser.parse(boost::asio::buffer(buffer.data(), bytes_transferred));
 				if(request.second == ResultType::good)
                 {
 					Logger::S_LOG << "Request for " << request.first->uri << " parsed successfully" << std::endl;

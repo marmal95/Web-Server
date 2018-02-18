@@ -1,6 +1,8 @@
 #pragma once
 
+#include "Defs.hpp"
 #include <memory>
+#include <boost/asio/buffer.hpp>
 
 namespace web
 {
@@ -10,7 +12,7 @@ namespace web
 	class IRequestParser
 	{
 	public:
-		// [TODO]:
+		virtual std::pair<Request_uPtr, ResultType> parse(const boost::asio::const_buffer&) = 0;
 		virtual ~IRequestParser() = default;
 	};
 }

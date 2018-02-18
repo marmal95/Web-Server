@@ -3,7 +3,6 @@
 #include "RequestHandler.hpp"
 #include "ConnectionManager.hpp"
 #include "ResponseBuilder.hpp"
-
 #include <string>
 #include <boost/asio/io_service.hpp>
 #include <boost/asio/ip/tcp.hpp>
