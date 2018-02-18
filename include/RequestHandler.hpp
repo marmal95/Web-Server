@@ -1,5 +1,6 @@
 #pragma once
 
+#include "IRequestHandler.hpp"
 #include "Request.hpp"
 #include "Response.hpp"
 #include "ResponseBuilder.hpp"
@@ -10,14 +11,14 @@
 
 namespace web
 {
-	class RequestHandler
+	class RequestHandler : public IRequestHandler
 	{
 	public:
 		RequestHandler(const ResponseBuilder& response_builder, std::string_view root_dir);
 		RequestHandler(const RequestHandler&) = delete;
 		RequestHandler& operator=(const RequestHandler&) = delete;
 
-		std::unique_ptr<IResponse> handle_request(std::unique_ptr<Request> request);
+		std::unique_ptr<IResponse> handle_request(std::unique_ptr<IRequest> request) override;
 
 	private:
 		const ResponseBuilder& response_builder;

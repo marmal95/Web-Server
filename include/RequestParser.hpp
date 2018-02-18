@@ -1,5 +1,6 @@
 #pragma once
 
+#include "IRequestParser.hpp"
 #include "Defs.hpp"
 #include <iostream>
 #include <memory>
@@ -10,7 +11,7 @@ namespace web
 	struct Request;
 	using Request_uPtr = std::unique_ptr<Request>;
 
-	class RequestParser
+	class RequestParser : public IRequestParser
 	{
 	public:
 		RequestParser();

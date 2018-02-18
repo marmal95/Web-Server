@@ -13,12 +13,12 @@ namespace web
 		Logger::S_LOG << "Initialized RequestHandler." << std::endl;
 	}
 
-	std::unique_ptr<IResponse> RequestHandler::handle_request(std::unique_ptr<Request> request)
+	std::unique_ptr<IResponse> RequestHandler::handle_request(std::unique_ptr<IRequest> request)
 	{
 		Logger::S_LOG << "Received new Request to handle." << std::endl;
 		Logger::S_LOG << "Start handling new Request..." << std::endl;
 
-		std::string request_path{ request->uri };
+		std::string request_path{ static_cast<Request*>(request.get())->uri };
 		if (is_path_dir(request_path))
 		{
 			Logger::S_LOG << "Path to dir in request. Appending index.html" << std::endl;
