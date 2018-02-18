@@ -8,7 +8,8 @@ namespace web
 	using boost::asio::ip::tcp;
 
 	Server::Server(boost::asio::io_service& io_service, const std::string& address, uint32_t port, const std::string& root_dir)
-		: service_io{ io_service }, tcp_acceptor{ io_service }, tcp_socket{ io_service }, request_handler{ root_dir }, connection_manager{}
+		: service_io{ io_service }, tcp_acceptor{ io_service }, tcp_socket{ io_service },
+		response_builder{}, request_handler { response_builder, root_dir }, connection_manager{}
 	{
 		Logger::S_LOG << "Initializing Server..." << std::endl;
 		tcp::resolver resolver{ io_service };
@@ -34,7 +35,7 @@ namespace web
 		{
 			if (!tcp_acceptor.is_open())
 			{
-				Logger::S_LOG(InfoLevel::ERR) << __FILE__ << "#" << __LINE__ << ":" << __FUNCTION__ << "tcp_acceptor is not open. Could not accept connection." << std::endl;
+				Logger::S_LOG(InfoLevel::ERR) << __FILE__ << "#" << __LINE__ << " - " << __FUNCTION__ << "(): tcp_acceptor is not open. Could not accept connection." << std::endl;
 				return;
 			}
 

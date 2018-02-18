@@ -1,47 +1,48 @@
 #pragma once
 
-#include "Enum.hpp"
-
+#include "Defs.hpp"
 #include <iostream>
 #include <memory>
 #include <utility>
 
 namespace web
 {
-    struct Request;
-    using Request_uPtr = std::unique_ptr<Request>;
+	struct Request;
+	using Request_uPtr = std::unique_ptr<Request>;
 
-    class RequestParser
-    {
-    public:
-        RequestParser();
+	class RequestParser
+	{
+	public:
+		RequestParser();
 
-        template<typename Iterator>
-        std::pair<Request_uPtr, ResultType> parse(Iterator begin, Iterator end);
-        void reset();
+		template<typename Iterator>
+		std::pair<Request_uPtr, ResultType> parse(Iterator begin, Iterator end);
+		void reset();
 
-    private:
-        std::unique_ptr<Request> request;
-        ParserState state;
+	private:
+		std::unique_ptr<Request> request;
+		ParserState state;
 
-        ResultType consume(char input);
-        static bool is_special(int c);
-    };
+		ResultType consume(char input);
+		bool is_special(int c) const;
+	};
 
 
-    template<typename Iterator>
-    inline std::pair<Request_uPtr, ResultType> RequestParser::parse(Iterator begin, Iterator end)
-    {
-        while (begin != end)
-        {
-            ResultType result = consume(*begin++);
+	template<typename Iterator>
+	inline std::pair<Request_uPtr, ResultType> RequestParser::parse(Iterator begin, Iterator end)
+	{
+		Logger::S_LOG << "Parsing new request." << std::endl;
 
-            if (result == ResultType::good || result == ResultType::bad)
-            {
-                return {std::move(request), std::move(result)};
-            }
-        }
+		while (begin != end)
+		{
+			ResultType result = consume(*begin++);
 
-        return {std::move(request), ResultType::indeterminate};
-    }
+			if (result == ResultType::good || result == ResultType::bad)
+			{
+				return { std::move(request), std::move(result) };
+			}
+		}
+
+		return { std::move(request), ResultType::indeterminate };
+	}
 }

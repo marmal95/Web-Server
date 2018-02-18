@@ -1,6 +1,8 @@
 #include "ServerService.hpp"
 #include "ServerLog.hpp"
 
+#include <boost/asio.hpp>
+
 int main()
 {
 	Logger::S_LOG << "Starting application..." << std::endl;

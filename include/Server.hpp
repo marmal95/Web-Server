@@ -2,6 +2,7 @@
 
 #include "RequestHandler.hpp"
 #include "ConnectionManager.hpp"
+#include "ResponseBuilder.hpp"
 
 #include <string>
 #include <boost/asio/io_service.hpp>
@@ -25,6 +26,7 @@ namespace web
 		io_service& service_io;
 		tcp::acceptor tcp_acceptor;
 		tcp::socket tcp_socket;
+		ResponseBuilder response_builder;
 		RequestHandler request_handler;
 		ConnectionManager connection_manager;
 

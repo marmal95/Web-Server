@@ -9,7 +9,7 @@ namespace web
 		: socket{ std::move(con_socket) }, connection_manager{ con_manager }, request_handler{ req_handler },
 		request_parser{}, buffer{}, timer{ socket.get_io_service() }
 	{
-		Logger::S_LOG << "New Connection created: " << "[" << remote_endpoint_address() << "]" << std::endl;
+		Logger::S_LOG << "Created new Connection: " << "[" << remote_endpoint_address() << "]" << std::endl;
 	}
 
 	void Connection::start()
@@ -21,7 +21,8 @@ namespace web
 	void Connection::stop()
 	{
 		Logger::S_LOG << "Stopped Connection: " << "[" << remote_endpoint_address() << "]" << std::endl;
-        socket.close();
+		socket.shutdown(socket.shutdown_both);
+		socket.close();
 	}
 
 	std::string Connection::remote_endpoint_address() const
@@ -42,19 +43,30 @@ namespace web
 				auto request = request_parser.parse(buffer_data, buffer_data + bytes_transferred);
 				if(request.second == ResultType::good)
                 {
+					Logger::S_LOG << "Request for " << request.first->uri << " parsed successfully" << std::endl;
                     auto response = request_handler.handle_request(std::move(request.first));
+					Logger::S_LOG << "Created response." << std::endl;
                     write(std::move(response));
                 }
-                // TODO: Handle other cases
+				else
+				{
+					Logger::S_LOG(InfoLevel::DBG) << "__FILE__" << "#" << __LINE__ <<
+						" => " << __FUNCTION__ << "(): Following error occured while parsing request: ResultType:" <<
+						static_cast<int>(request.second) << std::endl;
+				}
 			}
 			else if (ec != boost::asio::error::operation_aborted)
 			{
-                Logger::S_LOG(InfoLevel::DBG) << ec << std::endl;
+				Logger::S_LOG(InfoLevel::DBG) << "__FILE__" << "#" << __LINE__ <<
+					" => " << __FUNCTION__ << "(): Following error occured: " << ec.message() <<
+					" (error code: " << ec << ")" << std::endl;
 				connection_manager.stop_connection(this_conn);
 			}
 			else
 			{
-				Logger::S_LOG(InfoLevel::DBG) << __FILE__ << "#" << __LINE__ << " Error occurred while reading data. Code error: " << ec << std::endl;
+				Logger::S_LOG(InfoLevel::DBG) << "__FILE__" << "#" << __LINE__ <<
+					" => " << __FUNCTION__ << "(): Following error occured: " << ec.message() <<
+					" (error code: " << ec << ")" << std::endl;
 			}
 		});
 
@@ -71,16 +83,11 @@ namespace web
 		});
 	}
 
-	void Connection::write(std::unique_ptr<Response> response)
+	void Connection::write(std::unique_ptr<IResponse> response)
 	{
-        std::string buffer{
-                        "HTTP/1.1 200 OK\r\n"
-                        "Content-Length: 44\r\n"
-                        "Content-Type: text/html\r\n"
-                        "\r\n"
-                        "<html><body><h1>It works!</h1></body></html>\r\n"};
-        boost::asio::async_write(socket, boost::asio::buffer(buffer),
-            [this](boost::system::error_code ec, std::size_t x)
+		auto this_conn{ shared_from_this() };
+        boost::asio::async_write(socket, response->to_buffers(),
+            [this, this_conn](boost::system::error_code ec, std::size_t x)
          {
              Logger::S_LOG << "Sending response: " << "[" << remote_endpoint_address() << "]" << std::endl;
              if (!ec)
@@ -91,7 +98,7 @@ namespace web
 
              if (ec != boost::asio::error::operation_aborted)
              {
-                 connection_manager.stop_connection(shared_from_this());
+                 connection_manager.stop_connection(this_conn);
              }
          });
     }

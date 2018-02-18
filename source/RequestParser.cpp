@@ -1,12 +1,14 @@
 #include "RequestParser.hpp"
 #include "Request.hpp"
 
+#include <cctype>
+
 namespace web
 {
+
 RequestParser::RequestParser()
-        : state(ParserState::method_start), request{std::make_unique<Request>()}
-{
-}
+        : state(ParserState::method_start), request{ std::make_unique<Request>() }
+{}
 
 void RequestParser::reset()
 {
@@ -267,11 +269,12 @@ ResultType RequestParser::consume(char input)
             }
         case ParserState::expecting_newline_3:
             return (input == '\n') ? ResultType ::good : ResultType::bad;
+		default:
+			return ResultType::bad;
     }
 }
 
-// TODO: Try std:: some function
-bool RequestParser::is_special(int c)
+bool RequestParser::is_special(int c) const
 {
     switch (c)
     {

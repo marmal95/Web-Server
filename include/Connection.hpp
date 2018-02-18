@@ -3,7 +3,6 @@
 #include "ConnectionManager.hpp"
 #include "RequestHandler.hpp"
 #include "RequestParser.hpp"
-#include "Request.hpp"
 #include "Response.hpp"
 
 #include <array>
@@ -35,6 +34,6 @@ namespace web
 		boost::asio::deadline_timer timer;
 
 		void read();
-		void write(std::unique_ptr<Response> response);
+		void write(std::unique_ptr<IResponse> response);
 	};
 }

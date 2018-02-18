@@ -24,4 +24,5 @@ std::string ServerLog::return_info_level_str()
 	case InfoLevel::WRN: return " [WARNING] -> ";
 	case InfoLevel::ERR: return " [ERROR] -> ";
 	}
+	return " [???] -> ";
 }

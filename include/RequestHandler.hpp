@@ -2,22 +2,31 @@
 
 #include "Request.hpp"
 #include "Response.hpp"
+#include "ResponseBuilder.hpp"
 
 #include <memory>
 #include <string>
+#include <exception>
 
 namespace web
 {
 	class RequestHandler
 	{
 	public:
-		RequestHandler(const std::string& root_dir);
+		RequestHandler(const ResponseBuilder& response_builder, const std::string& root_dir);
 		RequestHandler(const RequestHandler&) = delete;
 		RequestHandler& operator=(const RequestHandler&) = delete;
 
-		std::unique_ptr<Response> handle_request(std::unique_ptr<Request> request);
+		std::unique_ptr<IResponse> handle_request(std::unique_ptr<Request> request);
 
 	private:
-		std::string root_dir;
+		const ResponseBuilder& response_builder;
+		const std::string root_dir;
+
+		bool is_path_correct(const std::string& path) const;
+		bool is_path_dir(const std::string& path) const;
+		void append_index(std::string& path);
+		std::string get_extension(const std::string& path) const;
+		std::string read_file_content(const std::string& path);
 	};
 }
