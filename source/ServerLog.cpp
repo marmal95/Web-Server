@@ -1,9 +1,10 @@
 #include "ServerLog.hpp"
+#include <boost/thread.hpp>
 
 ServerLog Logger::S_LOG{};
 
 
-std::string ServerLog::return_current_time_and_date()
+std::string ServerLog::return_curr_time_and_date() const
 {
 	std::ostringstream os{};
 	auto now = std::chrono::system_clock::now();
@@ -15,14 +16,28 @@ std::string ServerLog::return_current_time_and_date()
 	return os.str();
 }
 
-std::string ServerLog::return_info_level_str()
+std::string ServerLog::return_info_level_str() const
 {
 	switch (info_level)
 	{
-	case InfoLevel::INF: return " [INFO] -> ";
-	case InfoLevel::DBG: return " [DEBUG] -> ";
-	case InfoLevel::WRN: return " [WARNING] -> ";
-	case InfoLevel::ERR: return " [ERROR] -> ";
+	case InfoLevel::INF: return " [INFO] ";
+	case InfoLevel::DBG: return " [DEBUG] ";
+	case InfoLevel::WRN: return " [WARNING] ";
+	case InfoLevel::ERR: return " [ERROR] ";
 	}
-	return " [???] -> ";
+	return {};
+}
+
+std::string ServerLog::return_curr_thread_id() const
+{
+	std::ostringstream os{};
+	os << "[";
+	os << boost::this_thread::get_id();
+	os << "]";
+	return os.str();
+}
+
+std::string ServerLog::return_arrow_pointer() const
+{
+	return " => ";
 }

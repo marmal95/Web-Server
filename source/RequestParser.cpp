@@ -10,7 +10,7 @@ RequestParser::RequestParser()
 	: state(ParserState::method_start), request{ nullptr }
 {}
 
-std::pair<Request_uPtr, ResultType> RequestParser::parse(const boost::asio::const_buffer& buffer)
+std::pair<ResultType, Request_uPtr> RequestParser::parse(const boost::asio::const_buffer& buffer)
 {
 	Logger::S_LOG << "Parsing new request." << std::endl;
 	request = std::make_unique<Request>();
@@ -24,11 +24,11 @@ std::pair<Request_uPtr, ResultType> RequestParser::parse(const boost::asio::cons
 
 		if (result == ResultType::good || result == ResultType::bad)
 		{
-			return { std::move(request), std::move(result) };
+			return { std::move(result), std::move(request) };
 		}
 	}
 
-	return { std::move(request), ResultType::indeterminate };
+	return { ResultType::indeterminate, std::move(request) };
 }
 
 void RequestParser::reset()

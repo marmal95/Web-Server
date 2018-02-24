@@ -31,7 +31,7 @@ namespace web
 			std::string extension = get_extension(request_path);
 			std::string full_path = root_dir + request_path;
 			std::string content = read_file_content(full_path);
-			Logger::S_LOG << "Creating response for: " << full_path << std::endl;
+			Logger::S_LOG << "Creating response for: " << request_path << std::endl;
 			return response_builder.build(ResponseStatus::ok, content, extension);
 		} 
 		catch (const FileNotFound& exc)
@@ -60,6 +60,7 @@ namespace web
 	{
 		auto last_slash_pos = path.find_last_of("/");
 		auto last_dot_pos = path.find_last_of(".");
+
 		std::string extension{};
 		if (last_dot_pos != std::string::npos && last_dot_pos > last_slash_pos)
 		{

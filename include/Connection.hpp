@@ -36,5 +36,12 @@ namespace web
 
 		void read();
 		void write(std::unique_ptr<IResponse> response);
+		void handle_parsed_request(std::pair<ResultType, std::unique_ptr<Request>> parsed_req);
+		void handle_good_request(std::unique_ptr<Request> request);
+		void handle_bad_request(std::unique_ptr<Request> request);
+		void start_timer();
+		void set_timeout_handler();
+		void stop_timer();
+		void stopIfNotAborted(boost::system::error_code ec);
 	};
 }

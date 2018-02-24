@@ -16,7 +16,7 @@ namespace web
 	{
 	public:
 		RequestParser();
-		std::pair<Request_uPtr, ResultType> parse(const boost::asio::const_buffer& buffer) override;
+		std::pair<ResultType, Request_uPtr> parse(const boost::asio::const_buffer& buffer) override;
 		void reset();
 
 	private:

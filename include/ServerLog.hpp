@@ -5,6 +5,7 @@
 #include <ostream>
 #include <chrono>
 #include <iomanip>
+#include <boost/thread.hpp>
 
 enum class InfoLevel
 {
@@ -30,8 +31,10 @@ private:
 	InfoLevel info_level;
 	std::ostringstream o_stream;
 
-	std::string return_current_time_and_date();
-	std::string return_info_level_str();
+	std::string return_curr_time_and_date() const;
+	std::string return_info_level_str() const;
+	std::string return_curr_thread_id() const;
+	std::string return_arrow_pointer() const;
 };
 
 inline ServerLog& ServerLog::operator()(InfoLevel il)
@@ -50,8 +53,10 @@ inline ServerLog& ServerLog::operator<<(T&& value)
 inline ServerLog& ServerLog::operator<<(std::ostream& (*os)(std::ostream&))
 {
 	std::cout <<
-		return_current_time_and_date() <<
+		return_curr_time_and_date() <<
 		return_info_level_str() <<
+		return_curr_thread_id() <<
+		return_arrow_pointer() <<
 		o_stream.str() << os;
 	o_stream.str("");
 	info_level = InfoLevel::INF;

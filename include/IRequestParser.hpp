@@ -12,7 +12,7 @@ namespace web
 	class IRequestParser
 	{
 	public:
-		virtual std::pair<Request_uPtr, ResultType> parse(const boost::asio::const_buffer&) = 0;
+		virtual std::pair<ResultType, Request_uPtr> parse(const boost::asio::const_buffer&) = 0;
 		virtual ~IRequestParser() = default;
 	};
 }

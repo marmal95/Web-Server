@@ -35,7 +35,8 @@ namespace web
 		{
 			if (!tcp_acceptor.is_open())
 			{
-				Logger::S_LOG(InfoLevel::ERR) << __FILE__ << "#" << __LINE__ << " - " << __FUNCTION__ << "(): tcp_acceptor is not open. Could not accept connection." << std::endl;
+				Logger::S_LOG(InfoLevel::ERR) << __FILE__ << "#" << __LINE__ << " => " <<
+					__FUNCTION__ << "(): tcp_acceptor is not open. Could not accept connection." << std::endl;
 				return;
 			}
 
