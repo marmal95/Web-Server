@@ -115,6 +115,8 @@ namespace web
 		extensions["html"] = "text/html";
 		extensions["jpg"] = "image/jpeg";
 		extensions["png"] = "image/png";
+		extensions["css"] = "text/css";
+		extensions["js"] = "text/javascript";
 	}
 
 }

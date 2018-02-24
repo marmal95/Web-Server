@@ -1,6 +1,6 @@
 #pragma once
 
-#include <exception>
+#include <stdexcept>
 #include <string_view>
 
 class FileNotFound : public std::runtime_error

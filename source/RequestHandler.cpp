@@ -3,6 +3,7 @@
 #include "Exception.hpp"
 #include "ServerLog.hpp"
 #include <fstream>
+#include <iterator>
 
 namespace web
 {
@@ -69,14 +70,19 @@ namespace web
 
 	std::string RequestHandler::read_file_content(std::string_view path)
 	{
-		std::string content{};
-
 		std::ifstream input_file(path.data(), std::ios::binary);
-		input_file.unsetf(std::ios::skipws);
 		if (!input_file)
 		{
 			throw FileNotFound{ "Could not open the file."};
 		}
+
+		input_file.unsetf(std::ios::skipws);
+		input_file.seekg(0, std::ios::end);
+		auto file_size = input_file.tellg();
+		input_file.seekg(0, std::ios::beg);
+
+		std::string content{};
+		content.reserve(file_size);
 
 		content.insert(content.begin(),
 			std::istream_iterator<char>(input_file),
