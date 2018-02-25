@@ -51,15 +51,8 @@ namespace web
 			}
 		});
 
-		timer.expires_from_now(boost::posix_time::seconds{ 5 });
-		timer.async_wait([this, this_conn](const boost::system::error_code& ec)
-		{
-			if (!ec)
-			{
-				Logger::S_LOG << "Connection timeout: " << "[" << remote_endpoint_address() << "]" << std::endl;
-				close_connection();
-			}
-		});
+		start_timer();
+		set_timeout_handler();
 	}
 
 	void Connection::write(std::unique_ptr<IResponse> response)
