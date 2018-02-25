@@ -36,6 +36,7 @@ namespace web
 			[this, this_conn](const boost::system::error_code& ec, std::size_t bytes_transferred)
 		{
 			stop_timer();
+			Logger::S_LOG << "Reading request: " << "[" << remote_endpoint_address() << "]" << std::endl;
 			if (!ec)
 			{
 				auto buffer_data = buffer.data();
@@ -47,7 +48,7 @@ namespace web
 				Logger::S_LOG(InfoLevel::DBG) << "__FILE__" << "#" << __LINE__ <<
 					" => " << __FUNCTION__ << "(): Following error occurred: " << ec.message() <<
 					" (error code: " << ec << ")" << std::endl;
-				stopIfNotAborted(ec);
+				close_connection_if_not_aborted(ec);
 			}
 		});
 
@@ -67,14 +68,14 @@ namespace web
 				Logger::S_LOG << "Response sent to: [" << remote_endpoint_address() << "]" << std::endl;
 				boost::system::error_code ignored_ec;
 				socket.shutdown(boost::asio::ip::tcp::socket::shutdown_both, ignored_ec);
-				connection_manager.stop_connection(this_conn);
+				close_connection();
 			}
 			else
 			{
 				Logger::S_LOG(InfoLevel::DBG) << "__FILE__" << "#" << __LINE__ <<
 					" => " << __FUNCTION__ << "(): An error occurred: " << ec.message() <<
 					" (error code: " << ec << ")" << std::endl;
-				stopIfNotAborted(ec);
+				close_connection_if_not_aborted(ec);
 			}
 		});
 	}
@@ -103,6 +104,7 @@ namespace web
 	{
 		Logger::S_LOG(InfoLevel::DBG) << "__FILE__" << "#" << __LINE__ <<
 			" => " << __FUNCTION__ << "(): Error occurred while parsing request." << std::endl;
+		request.reset();
 	}
 
 	void Connection::start_timer()
@@ -130,12 +132,16 @@ namespace web
 		timer.cancel();
 	}
 
-	void Connection::stopIfNotAborted(boost::system::error_code ec)
+	void Connection::close_connection()
+	{
+		connection_manager.stop_connection(shared_from_this());
+	}
+
+	void Connection::close_connection_if_not_aborted(boost::system::error_code ec)
 	{
 		if (ec != boost::asio::error::operation_aborted)
 		{
-			connection_manager.stop_connection(shared_from_this());
+			close_connection();
 		}
 	}
-
 }

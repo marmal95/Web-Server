@@ -117,6 +117,8 @@ namespace web
 		extensions["png"] = "image/png";
 		extensions["css"] = "text/css";
 		extensions["js"] = "text/javascript";
+		//extensions["woff"] = "font/woff";
+		//extensions["woff2"] = "font/woff2";
 	}
 
 }

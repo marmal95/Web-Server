@@ -1,5 +1,5 @@
 #include "ServerLog.hpp"
-#include <boost/thread.hpp>
+#include <thread>
 
 ServerLog Logger::S_LOG{};
 
@@ -32,7 +32,7 @@ std::string ServerLog::return_curr_thread_id() const
 {
 	std::ostringstream os{};
 	os << "[";
-	os << boost::this_thread::get_id();
+	os << std::this_thread::get_id();
 	os << "]";
 	return os.str();
 }
