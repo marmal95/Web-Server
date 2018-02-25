@@ -35,7 +35,7 @@ namespace web
 		socket.async_receive(boost::asio::buffer(buffer),
 			[this, this_conn](const boost::system::error_code& ec, std::size_t bytes_transferred)
 		{
-			timer.cancel();
+			stop_timer();
 			if (!ec)
 			{
 				auto buffer_data = buffer.data();
@@ -126,7 +126,8 @@ namespace web
 
 	void Connection::stop_timer()
 	{
-		Logger::S_LOG << "Timer for: " << "[" << remote_endpoint_address() << "]" << " stopped." << std::endl;
+		// Exception is thrown during invoking remote_endpoint_address(). Do not uncomment.
+		// Logger::S_LOG << "Timer for: " << "[" << remote_endpoint_address() << "]" << " stopped." << std::endl;
 		timer.cancel();
 	}
 
