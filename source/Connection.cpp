@@ -35,8 +35,7 @@ namespace web
 		socket.async_receive(boost::asio::buffer(buffer),
 			[this, this_conn](const boost::system::error_code& ec, std::size_t bytes_transferred)
 		{
-			stop_timer();
-			Logger::S_LOG << "Reading request: " << "[" << remote_endpoint_address() << "]" << std::endl;
+			timer.cancel();
 			if (!ec)
 			{
 				auto buffer_data = buffer.data();
@@ -46,14 +45,21 @@ namespace web
 			else
 			{
 				Logger::S_LOG(InfoLevel::DBG) << "__FILE__" << "#" << __LINE__ <<
-					" => " << __FUNCTION__ << "(): Following error occurred: " << ec.message() <<
+					" => " << __FUNCTION__ << "(): Following error occured: " << ec.message() <<
 					" (error code: " << ec << ")" << std::endl;
 				close_connection_if_not_aborted(ec);
 			}
 		});
 
-		start_timer();
-		set_timeout_handler();
+		timer.expires_from_now(boost::posix_time::seconds{ 5 });
+		timer.async_wait([this, this_conn](const boost::system::error_code& ec)
+		{
+			if (!ec)
+			{
+				Logger::S_LOG << "Connection timeout: " << "[" << remote_endpoint_address() << "]" << std::endl;
+				close_connection();
+			}
+		});
 	}
 
 	void Connection::write(std::unique_ptr<IResponse> response)
@@ -115,13 +121,12 @@ namespace web
 
 	void Connection::set_timeout_handler()
 	{
-		auto this_conn{ shared_from_this() };
-		timer.async_wait([this, this_conn](const boost::system::error_code& ec)
+		timer.async_wait([this](const boost::system::error_code& ec)
 		{
 			if (!ec)
 			{
 				Logger::S_LOG << "Connection timeout: " << "[" << remote_endpoint_address() << "]" << std::endl;
-				connection_manager.stop_connection(this_conn);
+				close_connection();
 			}
 		});
 	}
@@ -137,7 +142,7 @@ namespace web
 		connection_manager.stop_connection(shared_from_this());
 	}
 
-	void Connection::close_connection_if_not_aborted(boost::system::error_code ec)
+	void Connection::close_connection_if_not_aborted(const boost::system::error_code& ec)
 	{
 		if (ec != boost::asio::error::operation_aborted)
 		{

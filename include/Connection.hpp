@@ -43,6 +43,6 @@ namespace web
 		void set_timeout_handler();
 		void stop_timer();
 		void close_connection();
-		void close_connection_if_not_aborted(boost::system::error_code ec);
+		void close_connection_if_not_aborted(const boost::system::error_code& ec);
 	};
 }
