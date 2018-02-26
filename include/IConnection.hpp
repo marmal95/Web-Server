@@ -9,7 +9,7 @@ namespace web
 	public:
 		virtual void start() = 0;
 		virtual void stop() = 0;
-		virtual std::string remote_endpoint_address() const = 0;
+		virtual uint32_t get_id() const = 0;
 		virtual ~IConnection() = default;
 	};
 }

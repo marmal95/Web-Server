@@ -24,7 +24,7 @@ namespace web
 
 		void start() override;
 		void stop() override;
-		std::string remote_endpoint_address() const;
+		uint32_t get_id() const override;
 
 	private:
 		tcp::socket socket;
@@ -33,6 +33,7 @@ namespace web
 		RequestParser request_parser;
 		std::array<char, 8192> buffer;
 		boost::asio::deadline_timer timer;
+		uint32_t conn_id;
 
 		void read();
 		void write(std::unique_ptr<IResponse> response);
