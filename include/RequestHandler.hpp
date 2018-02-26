@@ -22,6 +22,7 @@ namespace web
 		const ResponseBuilder& response_builder;
 		const std::string root_dir;
 
+		std::string decode_path(std::string_view path) const;
 		bool is_path_correct(std::string_view path) const;
 		bool is_path_dir(std::string_view path) const;
 		void append_index(std::string& path);

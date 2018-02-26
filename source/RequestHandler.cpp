@@ -20,6 +20,7 @@ namespace web
 		Logger::S_LOG << "Start handling new Request..." << std::endl;
 
 		std::string request_path{ static_cast<Request*>(request.get())->uri };
+		request_path = decode_path(request_path);
 		if (is_path_dir(request_path))
 		{
 			Logger::S_LOG << "Path to dir in request. Appending index.html" << std::endl;
@@ -39,6 +40,17 @@ namespace web
 			Logger::S_LOG << exc.what() << " [ " << request_path << " ] " << std::endl;
 			return response_builder.build(ResponseStatus::not_found, std::nullopt, std::nullopt);
 		}
+	}
+
+	std::string RequestHandler::decode_path(std::string_view path) const
+	{
+		std::string dec_path{ path };
+		auto path_end_idx = path.find('?');
+		if (path_end_idx != std::string::npos)
+		{
+			dec_path = path.substr(0, path_end_idx);
+		}
+		return dec_path;
 	}
 
 	bool RequestHandler::is_path_correct(std::string_view path) const
