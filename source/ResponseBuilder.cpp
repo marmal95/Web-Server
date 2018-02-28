@@ -13,7 +13,7 @@ namespace web
 	std::unique_ptr<IResponse> web::ResponseBuilder::build(
 		ResponseStatus status, std::optional<std::string_view> content, std::optional<std::string_view> extension) const
 	{
-		auto resp_content = content ? content->data() : "";
+		auto resp_content = content ? *content : "";
 		auto resp_extension = extension ? extension->data() : "html";
 
 		auto response = std::make_unique<Response>();
