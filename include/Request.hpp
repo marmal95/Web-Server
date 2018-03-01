@@ -12,7 +12,6 @@ namespace web
         std::vector<Header> headers;
         std::string method;
         std::string uri;
-        int http_version_minor;
-        int http_version_major;
+		std::string http_ver;
 	};
 }

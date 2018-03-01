@@ -30,16 +30,15 @@ namespace web
 		tcp::socket socket;
 		ConnectionManager& connection_manager;
 		RequestHandler& request_handler;
-		RequestParser request_parser;
+		RequestParser request_parser; // [TODO]: Maybe not needed per connection
 		std::array<char, 8192> buffer;
 		boost::asio::deadline_timer timer;
 		uint32_t conn_id;
 
 		void read();
 		void write(std::unique_ptr<Response> response);
-		void handle_parsed_request(std::pair<ResultType, std::unique_ptr<Request>> parsed_req);
-		void handle_good_request(std::unique_ptr<Request> request);
-		void handle_bad_request(std::unique_ptr<Request> request);
+		void handle_received_data(size_t bytes_transferred);
+		void handle_received_request(std::unique_ptr<Request> request);
 		void start_timer();
 		void set_timeout_handler();
 		void stop_timer();
