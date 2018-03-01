@@ -5,7 +5,7 @@ project(Server_Project)
 
 # C++ Version
 set(CMAKE_CXX_STANDARD 17)
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pthread")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pthread -Wall -Wextra -Werror")
 
 # Find Boost
 find_package(Boost 1.66.0 REQUIRED COMPONENTS system thread)
