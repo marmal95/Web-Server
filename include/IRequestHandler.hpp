@@ -4,13 +4,13 @@
 
 namespace web
 {
-	class IResponse;
-	class IRequest;
+	struct Response;
+	struct Request;
 
 	class IRequestHandler
 	{
 	public:
-		virtual std::unique_ptr<IResponse> handle_request(std::unique_ptr<IRequest>) = 0;
+		virtual std::unique_ptr<Response> handle_request(std::unique_ptr<Request>) = 0;
 		virtual ~IRequestHandler() = default;
 	};
 }

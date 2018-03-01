@@ -10,7 +10,7 @@ namespace web
 	{
 	public:
 		ResponseBuilder();
-		std::unique_ptr<IResponse> build(ResponseStatus status, std::optional<std::string_view> content, std::optional<std::string_view> extension) const override;
+		std::unique_ptr<Response> build(ResponseStatus status, std::optional<std::string_view> content, std::optional<std::string_view> extension) const override;
 
 	private:
 		std::map<ResponseStatus, std::string> status_str_responses;

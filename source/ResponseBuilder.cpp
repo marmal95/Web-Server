@@ -10,7 +10,7 @@ namespace web
 		fill_extensions_map();
 	}
 
-	std::unique_ptr<IResponse> web::ResponseBuilder::build(
+	std::unique_ptr<Response> web::ResponseBuilder::build(
 		ResponseStatus status, std::optional<std::string_view> content, std::optional<std::string_view> extension) const
 	{
 		auto resp_content = content ? *content : "";

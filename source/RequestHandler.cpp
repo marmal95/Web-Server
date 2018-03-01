@@ -14,7 +14,7 @@ namespace web
 		Logger::S_LOG << "Initialized RequestHandler." << std::endl;
 	}
 
-	std::unique_ptr<IResponse> RequestHandler::handle_request(std::unique_ptr<IRequest> request)
+	std::unique_ptr<Response> RequestHandler::handle_request(std::unique_ptr<Request> request)
 	{
 		Logger::S_LOG << "Received new Request to handle." << std::endl;
 		Logger::S_LOG << "Start handling new Request..." << std::endl;

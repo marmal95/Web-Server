@@ -1,14 +1,12 @@
 #pragma once
 
 #include "Header.hpp"
-#include "IRequest.hpp"
-
 #include <string>
 #include <vector>
 
 namespace web
 {
-    struct Request : IRequest
+    struct Request
 	{
         std::vector<Header> headers;
         std::string method;

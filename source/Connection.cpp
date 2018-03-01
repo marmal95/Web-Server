@@ -1,5 +1,6 @@
 #include "Connection.hpp"
 #include "ServerLog.hpp"
+#include "ResponseEncoder.hpp"
 #include <boost/asio.hpp>
 #include <atomic>
 
@@ -58,10 +59,13 @@ namespace web
 		set_timeout_handler();
 	}
 
-	void Connection::write(std::unique_ptr<IResponse> response)
+	void Connection::write(std::unique_ptr<Response> response)
 	{
 		auto this_conn{ shared_from_this() };
-		boost::asio::async_write(socket, response->to_buffers(),
+		std::cout << response->content.size() << std::endl;
+		auto buffers = ResponseEncoder::to_buffers(response);
+
+		boost::asio::async_write(socket, buffers,
 			[this, this_conn](boost::system::error_code ec, std::size_t bytes_transferred)
 		{
 			Logger::S_LOG << "Sending response..." << " [CONN_ID: " << conn_id << "]" << std::endl;
