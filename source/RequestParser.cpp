@@ -7,7 +7,7 @@ namespace web
 {
 
 RequestParser::RequestParser()
-	: state(ParserState::method_start), request{ nullptr }
+	: request{ nullptr }, state(ParserState::method_start)
 {}
 
 std::pair<ResultType, Request_uPtr> RequestParser::parse(const boost::asio::const_buffer& buffer)

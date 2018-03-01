@@ -43,7 +43,6 @@ namespace web
 			stop_timer();
 			if (!ec)
 			{
-				auto buffer_data = buffer.data();
 				auto request = request_parser.parse(boost::asio::buffer(buffer.data(), bytes_transferred));
 				handle_parsed_request(std::move(request));
 			}
@@ -67,7 +66,7 @@ namespace web
 		auto buffers = ResponseEncoder::to_buffers(response);
 
 		boost::asio::async_write(socket, buffers,
-			[this, this_conn](boost::system::error_code ec, std::size_t bytes_transferred)
+			[this, this_conn](boost::system::error_code ec, std::size_t)
 		{
 			Logger::S_LOG << "Sending response..." << " [CONN_ID: " << conn_id << "]" << std::endl;
 			if (!ec)
