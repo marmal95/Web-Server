@@ -1,6 +1,7 @@
 #pragma once
 
 #include "IConnectionManager.hpp"
+
 #include <unordered_set>
 #include <memory>
 

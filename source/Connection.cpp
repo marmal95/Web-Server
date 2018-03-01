@@ -1,8 +1,9 @@
 #include "Connection.hpp"
 #include "ServerLog.hpp"
 #include "ResponseEncoder.hpp"
-#include <boost/asio.hpp>
+
 #include <atomic>
+#include <boost/asio.hpp>
 
 namespace web
 {

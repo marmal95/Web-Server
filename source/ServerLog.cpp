@@ -1,4 +1,5 @@
 #include "ServerLog.hpp"
+
 #include <thread>
 
 ServerLog Logger::S_LOG{};

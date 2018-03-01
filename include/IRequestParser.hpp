@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Defs.hpp"
+
 #include <memory>
 #include <boost/asio/buffer.hpp>
 
