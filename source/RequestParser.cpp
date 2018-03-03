@@ -15,10 +15,10 @@ namespace web
 		
 		std::string req_content{ boost::asio::buffer_cast<const char*>(buffer) };
 		auto request_lines = split_lines(req_content);
-		throw_exception_if_condition_fail([&request_lines]() { return request_lines.empty(); });
+		conditionally_throw_exception([&request_lines]() { return request_lines.empty(); });
 
 		auto first_line = split_first_line(request_lines);
-		throw_exception_if_condition_fail([&first_line]() { return first_line.size() < 3; });
+		conditionally_throw_exception([&first_line]() { return first_line.size() < 3; });
 
 		auto request = std::make_unique<Request>();
 		request->method = first_line[0];

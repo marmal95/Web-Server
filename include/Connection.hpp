@@ -39,6 +39,7 @@ namespace web
 		void write(std::unique_ptr<Response> response);
 		void handle_received_data(size_t bytes_transferred);
 		void handle_received_request(std::unique_ptr<Request> request);
+		void handle_bad_request();
 		void start_timer();
 		void set_timeout_handler();
 		void stop_timer();

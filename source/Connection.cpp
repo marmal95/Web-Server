@@ -93,16 +93,26 @@ namespace web
 		}
 		catch (const RequestInvalid& exception)
 		{
-			// [TODO]: Log Exception
+			Logger::S_LOG(InfoLevel::DBG) << "__FILE__" << "#" << __LINE__ <<
+				" => " << __FUNCTION__ << "(): An exception occurred: " << exception.what() << std::endl;
+			handle_bad_request();
 		}
 	}
 
 	void Connection::handle_received_request(std::unique_ptr<Request> request)
 	{
-			Logger::S_LOG << "Request for " << request->uri << " parsed successfully." << std::endl;
-			auto response = request_handler.handle_request(std::move(request));
-			Logger::S_LOG << "Created response." << std::endl;
-			write(std::move(response));
+		Logger::S_LOG << "Request for " << request->uri << " parsed successfully." << std::endl;
+		auto response = request_handler.handle_request(std::move(request));
+		Logger::S_LOG << "Created response." << std::endl;
+		write(std::move(response));
+	}
+
+	void Connection::handle_bad_request()
+	{
+		Logger::S_LOG << "Request parsed unsuccessfully." << std::endl;
+		auto response = request_handler.handle_bad_request();
+		Logger::S_LOG << "Created response for bad request." << std::endl;
+		write(std::move(response));
 	}
 
 	void Connection::start_timer()

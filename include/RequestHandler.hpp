@@ -18,6 +18,7 @@ namespace web
 		RequestHandler& operator=(const RequestHandler&) = delete;
 
 		std::unique_ptr<Response> handle_request(std::unique_ptr<Request> request) override;
+		std::unique_ptr<Response> handle_bad_request() override;
 
 	private:
 		const ResponseBuilder& response_builder;

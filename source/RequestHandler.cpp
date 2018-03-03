@@ -20,7 +20,7 @@ namespace web
 		Logger::S_LOG << "Received new Request to handle." << std::endl;
 		Logger::S_LOG << "Start handling new Request..." << std::endl;
 
-		std::string request_path{ static_cast<Request*>(request.get())->uri };
+		std::string request_path{ request->uri };
 		request_path = decode_path(request_path);
 		if (is_path_dir(request_path))
 		{
@@ -41,6 +41,13 @@ namespace web
 			Logger::S_LOG << exc.what() << " [ " << request_path << " ] " << std::endl;
 			return response_builder.build(ResponseStatus::not_found, std::nullopt, std::nullopt);
 		}
+	}
+
+	std::unique_ptr<Response> RequestHandler::handle_bad_request()
+	{
+		Logger::S_LOG << "Received new bad Request to handle." << std::endl;
+		Logger::S_LOG << "Start handling new bad Request..." << std::endl;
+		return response_builder.build(ResponseStatus::bad_request, std::nullopt, std::nullopt);
 	}
 
 	std::string RequestHandler::decode_path(std::string_view path) const
