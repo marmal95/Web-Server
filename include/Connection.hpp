@@ -18,7 +18,7 @@ namespace web
 	class Connection : public IConnection, public std::enable_shared_from_this<Connection>
 	{
 	public:
-		Connection(tcp::socket&& socket, ConnectionManager& con_manager, RequestHandler& req_handler);
+		Connection(tcp::socket&& socket, ConnectionManager& con_manager, RequestHandler& req_handler, RequestParser& req_parser);
 		Connection(const Connection&) = delete;
 		Connection& operator=(const Connection&) = delete;
 
@@ -30,7 +30,7 @@ namespace web
 		tcp::socket socket;
 		ConnectionManager& connection_manager;
 		RequestHandler& request_handler;
-		RequestParser request_parser; // [TODO]: Maybe not needed per connection
+		RequestParser& request_parser;
 		std::array<char, 8192> buffer;
 		boost::asio::deadline_timer timer;
 		uint32_t conn_id;

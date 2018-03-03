@@ -9,7 +9,7 @@ namespace web
 
 	Server::Server(boost::asio::io_service& io_service, std::string_view address, uint32_t port, std::string_view root_dir)
 		: service_io{ io_service }, tcp_acceptor{ io_service }, tcp_socket{ io_service },
-		response_builder{}, request_handler{ response_builder, root_dir }, connection_manager {}
+		response_builder{}, request_handler{ response_builder, root_dir }, request_parser{}, connection_manager {}
 	{
 		Logger::S_LOG << "Initializing Server..." << std::endl;
 		tcp::resolver resolver{ io_service };
@@ -44,7 +44,7 @@ namespace web
 			{
 				Logger::S_LOG << "New Connection accepted: " << "[" << tcp_socket.remote_endpoint().address().to_string() << "]" << std::endl;
                 connection_manager.start_connection(std::make_shared<Connection>(
-					std::move(tcp_socket), connection_manager, request_handler));
+					std::move(tcp_socket), connection_manager, request_handler, request_parser));
 			}
 
 			accept();

@@ -3,6 +3,7 @@
 #include "RequestHandler.hpp"
 #include "ConnectionManager.hpp"
 #include "ResponseBuilder.hpp"
+#include "RequestParser.hpp"
 
 #include <string>
 #include <boost/asio/io_service.hpp>
@@ -28,6 +29,7 @@ namespace web
 		tcp::socket tcp_socket;
 		ResponseBuilder response_builder;
 		RequestHandler request_handler;
+		RequestParser request_parser;
 		ConnectionManager connection_manager;
 
 		void accept();

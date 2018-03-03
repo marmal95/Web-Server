@@ -8,9 +8,9 @@
 
 namespace web
 {
-	Connection::Connection(tcp::socket&& con_socket, ConnectionManager& con_manager, RequestHandler& req_handler)
-		: socket{ std::move(con_socket) }, connection_manager{ con_manager }, request_handler{ req_handler },
-		request_parser{}, buffer{}, timer{ socket.get_io_service() }
+	Connection::Connection(tcp::socket&& con_socket, ConnectionManager& con_manager, RequestHandler& req_handler, RequestParser& req_parser)
+		: socket{ std::move(con_socket) }, connection_manager{ con_manager }, request_handler{ req_handler }, 
+		request_parser{ req_parser }, buffer{}, timer{ socket.get_io_service() }
 	{
 		static std::atomic<uint32_t> id{};
 		conn_id = ++id;
