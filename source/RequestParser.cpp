@@ -1,5 +1,6 @@
 #include "RequestParser.hpp"
 #include "Request.hpp"
+#include "Exception.hpp"
 
 #include <cctype>
 #include <sstream>
@@ -12,14 +13,12 @@ namespace web
 	{
 		Logger::S_LOG << "Parsing new request." << std::endl;
 		
-		// [TODO]: Throw exception on error
-			
 		std::string req_content{ boost::asio::buffer_cast<const char*>(buffer) };
-		std::vector<std::string> request_lines{};
-		boost::split(request_lines, req_content, [](auto c) {return c == '\n'; });
+		auto request_lines = split_lines(req_content);
+		throw_exception_if_condition_fail([&request_lines]() { return request_lines.empty(); });
 
-		std::vector<std::string> first_line{};
-		boost::split(first_line, request_lines[0], [](auto c) {return c == ' '; });
+		auto first_line = split_first_line(request_lines);
+		throw_exception_if_condition_fail([&first_line]() { return first_line.size() < 3; });
 
 		auto request = std::make_unique<Request>();
 		request->method = first_line[0];
@@ -27,5 +26,19 @@ namespace web
 		request->http_ver = first_line[2];
 
 		return request;
+	}
+
+	std::vector<std::string> RequestParser::split_lines(std::string_view content) const
+	{
+		std::vector<std::string> lines{};
+		boost::split(lines, content, [](auto c) {return c == '\n'; });
+		return lines;
+	}
+
+	std::vector<std::string> RequestParser::split_first_line(const std::vector<std::string>& lines) const
+	{
+		std::vector<std::string> first_line{};
+		boost::split(first_line, lines[0], [](auto c) {return c == ' '; });
+		return first_line;
 	}
 }
