@@ -3,6 +3,7 @@
 #include "IRequestParser.hpp"
 #include "Defs.hpp"
 #include "ServerLog.hpp"
+#include "Exception.hpp"
 
 #include <iostream>
 #include <memory>

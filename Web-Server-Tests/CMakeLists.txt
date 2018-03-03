@@ -9,21 +9,27 @@ set(LIBRARY_OUTPUT_PATH ${CMAKE_SOURCE_DIR}/bin)
 
 # Find Boost
 find_package(Boost 1.66.0 REQUIRED COMPONENTS system thread)
+find_package(GTest REQUIRED)
+find_package(GMock REQUIRED)
 
 # Include Directories
-include_directories(include)
+include_directories(../Web-Server/include)
 include_directories(${Boost_INCLUDE_DIR})
+include_directories(${GTEST_INCLUDE_DIRS})
+include_directories(${GMOCK_INCLUDE_DIRS})
 
 # Link Directories
 link_directories(${Boost_LIBRARY_DIRS})
 
 # Add files
-file(GLOB_RECURSE HEADERS "include/*.hpp")
-file(GLOB_RECURSE SOURCES "source/*.cpp")
+file(GLOB_RECURSE HEADERS "*.hpp")
+file(GLOB_RECURSE SOURCES "*.cpp")
 
 # Create executable
-add_library(Server_Lib ${HEADERS} ${SOURCES})
-add_executable(Server_Project ${HEADERS} ${SOURCES} main.cpp)
+add_executable(Server_Project_Tests ${HEADERS} ${SOURCES})
 
 # Link libraries
-target_link_libraries(Server_Project ${Boost_LIBRARIES})
+target_link_libraries(Server_Project_Tests Server_Lib)
+target_link_libraries(Server_Project_Tests ${Boost_LIBRARIES})
+target_link_libraries(Server_Project_Tests ${GTEST_BOTH_LIBRARIES})
+target_link_libraries(Server_Project_Tests ${GMOCK_BOTH_LIBRARIES})
