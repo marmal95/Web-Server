@@ -1,5 +1,6 @@
 #pragma once
 
+#include "IServer.hpp"
 #include "RequestHandler.hpp"
 #include "ConnectionManager.hpp"
 #include "ResponseBuilder.hpp"
@@ -14,17 +15,19 @@ namespace web
 	using namespace boost::asio;
 	using namespace boost::asio::ip;
 	
-	class Server
+	class Server : public IServer
 	{
 	public:
-		Server(io_service& io_service, std::string_view address, uint32_t port, std::string_view root_dir);
+		Server(std::string_view address, uint32_t port, std::string_view root_dir);
 		Server(const Server&) = delete;
 		Server& operator=(const Server&) = delete;
 
-		void start();
+		void start() override;
+		void stop() override;
+		void reset() override;
 
 	private:
-		io_service& service_io;
+		io_service service_io;
 		tcp::acceptor tcp_acceptor;
 		tcp::socket tcp_socket;
 		ResponseBuilder response_builder;

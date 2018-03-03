@@ -11,6 +11,7 @@ namespace web
 	public:
 		virtual void start_connection(const std::shared_ptr<IConnection>&) = 0;
 		virtual void stop_connection(const std::shared_ptr<IConnection>&) = 0;
+		virtual void stop_all_connections() = 0;
 		virtual ~IConnectionManager() = default;
 	};
 }

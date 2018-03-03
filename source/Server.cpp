@@ -2,17 +2,18 @@
 #include "Connection.hpp"
 #include "ServerLog.hpp"
 
+
 namespace web
 {
 	using boost::asio::io_service;
 	using boost::asio::ip::tcp;
 
-	Server::Server(boost::asio::io_service& io_service, std::string_view address, uint32_t port, std::string_view root_dir)
-		: service_io{ io_service }, tcp_acceptor{ io_service }, tcp_socket{ io_service },
+	Server::Server(std::string_view address, uint32_t port, std::string_view root_dir)
+		: service_io{}, tcp_acceptor{ service_io }, tcp_socket{ service_io },
 		response_builder{}, request_handler{ response_builder, root_dir }, request_parser{}, connection_manager {}
 	{
 		Logger::S_LOG << "Initializing Server..." << std::endl;
-		tcp::resolver resolver{ io_service };
+		tcp::resolver resolver{ service_io };
 		tcp::endpoint endpoint = *resolver.resolve({ address.data(), std::to_string(port) });
 		tcp_acceptor.open(endpoint.protocol());
 		tcp_acceptor.set_option(tcp::acceptor::reuse_address{ true });
@@ -26,6 +27,22 @@ namespace web
 		Logger::S_LOG << "Starting Server..." << std::endl;
 		accept();
 		service_io.run();
+	}
+
+	void Server::stop()
+	{
+		Logger::S_LOG << "Stopping Server..." << std::endl;
+		service_io.stop();
+		tcp_acceptor.cancel();
+		tcp_acceptor.close();
+		tcp_socket.close();
+		connection_manager.stop_all_connections();
+	}
+
+	void Server::reset()
+	{
+		stop();
+		start();
 	}
 
 	void Server::accept()

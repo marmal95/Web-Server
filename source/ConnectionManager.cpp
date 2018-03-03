@@ -17,4 +17,13 @@ namespace web
 		connection->stop();
 		connections.erase(connection);
 	}
+
+	void ConnectionManager::stop_all_connections()
+	{
+		Logger::S_LOG << "Stopping all Connections..." << std::endl;
+		for (auto& conn : connections)
+		{
+			stop_connection(conn);
+		}
+	}
 }

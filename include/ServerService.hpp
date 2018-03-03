@@ -12,14 +12,14 @@ namespace web
 	class ServerService
 	{
 	public:
-		ServerService(std::string_view address, uint32_t port, std::string_view root_dir);
+		ServerService(std::string_view root_dir, std::string_view address, uint32_t port);
 		void start();
 
 	private:
-		io_service service_io;
+		std::string root_dir;
 		std::string address;
 		uint32_t port;
-		std::string root_dir;
+
 
 		Server server;
 	};

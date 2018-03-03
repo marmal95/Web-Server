@@ -18,6 +18,7 @@ namespace web
 
 		void start_connection(const std::shared_ptr<IConnection>& new_connection) override;
 		void stop_connection(const std::shared_ptr<IConnection>& connection) override;
+		void stop_all_connections() override;
 
 	private:
 		std::unordered_set<std::shared_ptr<IConnection>> connections;
