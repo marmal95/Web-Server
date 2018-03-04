@@ -70,6 +70,7 @@ namespace web_test
 	TEST_F(RequestParserTestSuite, should_parse_request_when_request_good)
 	{
 		auto request = req_parser.parse(boost::asio::buffer(GOOD_REQUEST));
+		ASSERT_NE(nullptr, request);
 		EXPECT_EQ(EXPECTED_METHOD_TYPE, request->method);
 		EXPECT_EQ(EXPECTED_URL, request->uri);
 		EXPECT_EQ(EXPECTED_HTTP_VER, request->http_ver);

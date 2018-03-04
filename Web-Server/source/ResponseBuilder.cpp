@@ -95,7 +95,7 @@ namespace web
 			"<html>"
 			"<head><title>Not Implemented</title></head>"
 			"<body><h1>501 Not Implemented</h1></body>"
-			"</html>";;
+			"</html>";
 		status_str_responses[ResponseStatus::bad_gateway] =
 			"<html>"
 			"<head><title>Bad Gateway</title></head>"

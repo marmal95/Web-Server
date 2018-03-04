@@ -1,5 +1,3 @@
-
-
 #include "RequestParserTestSuite.hpp"
 
 int main(int argc, char* argv[])
