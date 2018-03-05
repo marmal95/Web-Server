@@ -1,8 +1,7 @@
 #include "ServerService.hpp"
-#include "ServerLog.hpp"
 
-web::ServerService::ServerService(std::string_view root_dir, std::string_view address, uint32_t port)
-	: root_dir{ root_dir }, address{ address }, port{ port }, server{ address, port, root_dir }
+web::ServerService::ServerService(std::unique_ptr<IServerFactory> server_factory)
+	: server { server_factory->create() }
 {
 	Logger::S_LOG << "Initializing ServerService..." << std::endl;
 	Logger::S_LOG << "Initialized ServerService." << std::endl;
@@ -11,5 +10,5 @@ web::ServerService::ServerService(std::string_view root_dir, std::string_view ad
 void web::ServerService::start()
 {
 	Logger::S_LOG << "Starting ServerService..." << std::endl;
-	server.start();
+	server->start();
 }

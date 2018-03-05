@@ -25,8 +25,7 @@ namespace web
 
 	void Connection::stop()
 	{
-		Logger::S_LOG << "Stopped Connection." << " [CONN_ID: " << conn_id << "]" << std::endl;
-		socket.shutdown(socket.shutdown_both);
+        Logger::S_LOG << "Stopped Connection." << " [CONN_ID: " << conn_id << "]" << std::endl;
 		socket.close();
 	}
 
@@ -71,7 +70,7 @@ namespace web
 				Logger::S_LOG << "Response sent." << " [CONN_ID: " << conn_id << "]" << std::endl;
 				boost::system::error_code ignored_ec;
 				socket.shutdown(boost::asio::ip::tcp::socket::shutdown_both, ignored_ec);
-				close_connection();
+                close_connection();
 			}
 			else
 			{

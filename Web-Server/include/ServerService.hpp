@@ -1,15 +1,18 @@
 #pragma once
 
 #include "Server.hpp"
-
+#include "IServerFactory.hpp"
 #include <string_view>
+#include <memory>
 
 namespace web
 {
+    class IServer;
+
 	class ServerService
 	{
 	public:
-		ServerService(std::string_view root_dir, std::string_view address, uint32_t port);
+		ServerService(std::unique_ptr<IServerFactory> server_factory);
 		void start();
 
 	private:
@@ -17,6 +20,6 @@ namespace web
 		std::string address;
 		uint32_t port;
 
-		Server server;
+        std::unique_ptr<IServer> server;
 	};
 }

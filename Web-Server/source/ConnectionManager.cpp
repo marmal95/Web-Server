@@ -13,7 +13,7 @@ namespace web
 
 	void ConnectionManager::stop_connection(const std::shared_ptr<IConnection>& connection)
 	{
-		Logger::S_LOG << "Stopping Connection..." << " [CONN_ID: " << connection->get_id() << "]" << std::endl;
+        Logger::S_LOG << "Stopping Connection..." << " [CONN_ID: " << connection->get_id() << "]" << std::endl;
 		connection->stop();
 		connections.erase(connection);
 	}

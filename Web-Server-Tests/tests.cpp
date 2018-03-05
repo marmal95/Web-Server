@@ -1,3 +1,4 @@
+#include "ServerServiceTestSuite.hpp"
 #include "RequestParserTestSuite.hpp"
 
 int main(int argc, char* argv[])
